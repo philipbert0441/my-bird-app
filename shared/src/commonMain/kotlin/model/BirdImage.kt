@@ -1,7 +1,8 @@
-package Model
+package model
 
 import kotlinx.serialization.Serializable
-@Serialization
+
+@Serializable
 data class BirdImage(
     val author: String,
     val category: String,

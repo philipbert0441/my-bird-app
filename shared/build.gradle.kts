@@ -3,7 +3,7 @@ plugins {
     kotlin("native.cocoapods")
     id("com.android.library")
     id("org.jetbrains.compose")
-    kotlin("plugin.serialization") version "1.9.0"
+    kotlin("plugin.serialization") version "1.8.10"
 }
 
 kotlin {
@@ -38,7 +38,9 @@ kotlin {
                 implementation("io.ktor:ktor-client-core:2.3.1")
                 implementation("io.ktor:ktor-client-content-negotiation:2.3.1")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.1")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+                api("dev.icerock.moko:mvvm-core:0.16.1")
+                api("dev.icerock.moko:mvvm-compose:0.16.1")
             }
         }
         val androidMain by getting {

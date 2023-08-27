@@ -36,6 +36,7 @@ internal fun App() {
             //https://sebi.io/demo-image-api/pictures.json
             //https://github.com/Kotlin/kotlinx.serialization
             //https://ktor.io/docs/serialization-client.html#register_protobuf
+            //https://github.com/icerockdev/moko-mvvm
             AnimatedVisibility(visible = showImage){
                 KamelImage(
                     asyncPainterResource("https://sebi.io/demo-image-api/pigeon/" +
