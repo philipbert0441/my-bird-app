@@ -1,6 +1,7 @@
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -46,20 +47,42 @@ internal fun App() {
 @Composable
 fun BirdPage(viewModel: BirdsViewModel) {
     val uiState by viewModel.uiState.collectAsState()
-    AnimatedVisibility(uiState.images.isNotEmpty()) {
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            horizontalArrangement = Arrangement.spacedBy(5.dp),
-            verticalArrangement = Arrangement.spacedBy(5.dp),
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 5.dp),
-            content = {
-                items(uiState.images) {
-                    BirdImageCell(it)
+    Column(
+        Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .padding(5.dp),
+            horizontalArrangement = Arrangement.spacedBy(5.dp)
+        ) {
+            for (category in uiState.categories) {
+                Button(
+                    onClick = {
+                        viewModel.selectedCategory(category)
+                    }
+                ) {
+                    Text(category)
                 }
             }
-        )
+        }
+        AnimatedVisibility(uiState.selectedImages.isNotEmpty()) {
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                horizontalArrangement = Arrangement.spacedBy(5.dp),
+                verticalArrangement = Arrangement.spacedBy(5.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 5.dp),
+                content = {
+                    items(uiState.selectedImages) {
+                        BirdImageCell(it)
+                    }
+                }
+            )
+        }
     }
 }
 

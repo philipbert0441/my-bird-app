@@ -12,8 +12,13 @@ import kotlinx.coroutines.launch
 import model.BirdImage
 
 data class BirdsUIState(
-    val images: List<BirdImage> = emptyList()
-)
+    val images: List<BirdImage> = emptyList(),
+    val selectedCategory: String? = null
+) {
+    val categories: Set<String> = images.map { it.category }.toSet()
+    val selectedImages = images.filter { it.category == selectedCategory }
+}
+
 class BirdsViewModel: ViewModel() {
     private val _uiState = MutableStateFlow<BirdsUIState>(BirdsUIState())
     val uiState: StateFlow<BirdsUIState> = _uiState.asStateFlow()
@@ -25,14 +30,20 @@ class BirdsViewModel: ViewModel() {
     }
 
     init {
-        upDateIMages()
+        updateImages()
     }
 
     override fun onCleared() {
         httpClient.close()
     }
 
-    fun upDateIMages(){
+    fun selectedCategory(category: String) {
+        _uiState.update {
+            it.copy(selectedCategory = category)
+        }
+    }
+
+    fun updateImages(){
         viewModelScope.launch {
             val images = getImages()
             _uiState.update {
